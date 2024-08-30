@@ -1,0 +1,24 @@
+@media (max-width:1200px) {
+}
+
+/************ Main **************/
+@media (max-width: 960px) {
+.from_to_sec .title{ margin:0;}
+
+
+}
+@media (max-width: 767px) {
+html { -webkit-text-size-adjust:none;}
+.global_btn_info{ margin:0;}
+.content-wrapper, .right-side{ width:100%; float:left;}
+.seect_all_sec{ padding:0 0 0 20px;}
+
+}
+
+/************ iphone **************/
+@media (max-width:600px) {
+html { -webkit-text-size-adjust:none;}
+.course_block p{ margin-top:25px;}
+.table_page_info p{ margin:0 0 20px 0;}
+}
+

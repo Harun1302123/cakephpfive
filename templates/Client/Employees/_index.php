@@ -1,0 +1,632 @@
+<style>
+.table_listing .download_report {
+	margin: 0 3px 5px;
+	display: inline-block;
+}
+</style>
+<div class="content-wrapper"> <?php echo  $this->Flash->render();?>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <h2 class="global_title"><i class="fa fa-building-o"></i> Manage Employees</h2>
+    <div class="main_info_sec">
+      <div class="row" style="margin-bottom:1%;padding:0 20px 10px">
+        <div class="col-lg-3">
+          <!-- <a href="/client/employees/add" class="btn btn-info"><i class="fa fa-plus"></i> Add Record </a> -->
+        </div>
+        <div class="col-lg-7 pull-right">
+          <div class="for-search">
+            <form class="form-inlin" id="report-form">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form_block" > <?php echo $this->Form->input('company_id',['type' => 'select', 'options'=>$companies,'label'=>false,'div'=>false ,'empty'=>'Select Company','class'=>"form-control"]); ?> </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form_block">
+                    <input type="text" class="form-control" name="email_or_name" id="searchQuery" placeholder="Email or Name">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form_block">
+                    <button type="submit" class="btn btn-large btn-block btn-info" id="search-reports">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <style>
+		   .text-center.overlape {
+					position: absolute;
+					width: 100%;
+					z-index: 9999;
+					left: 0;
+					top: 39%;
+			}
+		   .table_listing{
+			   position:relative;}
+	   </style>
+      <div class="for-search">
+        <?php if(!$employees->isEmpty()){ ?>
+        <div class="pull-right" style="margin-right: 10px;margin-bottom:10px;">
+          <button class="btn btn-primary" id="create-xls-employees">Export to Excel</button>
+        </div>
+        <?php } ?>
+      </div>
+      <!-- Table -->
+
+      <div class="table_listing rep_content">
+        <div class="text-center overlape" id="loader" style="display:none"> <img src ="/img/loading.gif" width="60px" height="60px"> </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th align='left'><?php echo $this->Paginator->sort('name', 'Name');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('Companies.id', 'Company');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('passport_no', 'Passport No');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('passport_exp_date', 'Passport Expire Date');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('visa_no', 'Visa No');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('visa_exp_date', 'Visa  Expire Date');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('emiratesID_no', 'Emirates ID No');?></th>
+                <th align='left'><?php echo $this->Paginator->sort('emiratesID_exp_date', 'Emirates ID Expiry Date');?></th>
+                <th align='left' width="8%">Action</th>
+                <!---->
+              </tr>
+              <?php
+					if(!$employees->isEmpty()){
+							foreach($employees as $employee){
+						?>
+              <tr>
+                <?php //echo '<pre>'; print_r($employee); exit; ?>
+                <td><?php echo $employee->name;?></td>
+                <td><?php echo $employee->company->name;?></td>
+                <td><?php echo $employee->passport_no;?></td>
+                <td><?php echo $this->DateC->DateFormetforView($employee->passport_exp_date);?></td>
+                <td><?php echo $employee->visa_no;?></td>
+                <td><?php echo $this->DateC->DateFormetforView($employee->visa_exp_date);?></td>
+                <td><?php echo $employee->emiratesID_no;?></td>
+                <td><?php echo $this->DateC->DateFormetforView($employee->emiratesID_exp_date);?></td>
+                <td><?php
+								/*$dependent = '<a href="'.BASE_URL.'/client/dependents/add/'.base64_encode($employee->id).'/emp">
+								<i class="fa fa-users" title="Add dependent"></i></a>';
+
+								$edit = '<a href="'.BASE_URL.'/client/employees/edit/'.base64_encode($employee->id).'">
+								<i class="fa fa-edit" title="Edit"></i></a>';
+
+								echo $edit;		*/
+							?>
+                  <a data-toggle="modal" data-target="#documents-verifcation_<?php echo $employee->id; ?>" ><i class="fa fa-file " aria-hidden="true"></i></a> <a data-toggle="modal" data-target="#documents-view_<?php echo $employee->id; ?>" ><span class="icon-stack"> <i class="fa fa-file-o icon-stack-2x"></i> <i class="fa fa-eye icon-stack-1x"></i> </span></i> </a>
+
+                  <!-- Modal -->
+
+                  <div class="modal fade" id="documents-verifcation_<?php echo $employee->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="exampleModalLabel">Documents verification</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        </div>
+                        <?php $indexloop = 0; echo $this->Form->create($employee, array('url' => '/client/employees/edit/'.base64_encode($employee->id)));?>
+                        <div class="modal-body person_documents">
+                          <table class="table borderless">
+                            <tr>
+                              <td width="10%">Passport: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.passport_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox'  ,'disabled' => $employee['clients_document']['passport_send_client'] == 1 ? 'disabled' : false));
+
+								echo $this->Form->input('clients_document.passport_send_client_date', array('type'=>'hidden' , 'value' => $employee['clients_document']['passport_send_client_date']  ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['passport_send_client']){
+					  	echo $this->DateC->DateFormetforView($employee['clients_document']['passport_send_client_date']);
+					}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['passport_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['passport_receive_admin_date']).')</span>';
+						}
+						?>
+                                </span>
+                                <?php if($employee['clients_document']['passport_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="passport" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.passport_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['passport_receive_client'] == 1 ? 'disabled' : false ));
+								echo $this->Form->input('clients_document.passport_receive_client_date', array('type'=>'hidden' , 'value' => $employee['clients_document']['passport_receive_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                        <?php if($employee['clients_document']['passport_receive_client']){
+					  	echo $this->DateC->DateFormetforView($employee['clients_document']['passport_receive_client_date']);						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['passport_receive_admin']){
+							echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Send ('.$this->DateC->DateFormetforView($employee['clients_document']['passport_receive_admin_date']).')</span>';
+						}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Birthday Certificate: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.bc_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['bc_send_client'] == 1 ? 'disabled' : false ));
+
+								 echo $this->Form->input('clients_document.bc_send_client_date', array('type'=>'hidden' , 'value' => $employee['clients_document']['bc_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['bc_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['bc_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['bc_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['bc_receive_admin_date']).')</span>';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['bc_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="bc" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.bc_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['bc_receive_client'] == 1 ? 'disabled' : false ));
+								echo $this->Form->input('clients_document.bc_receive_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['bc_receive_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['bc_receive_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['bc_receive_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['bc_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Sent ('.$this->DateC->DateFormetforView($employee['clients_document']['bc_send_admin_date']).')</span>';
+							}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Marriage Certificate: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.mc_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['mc_send_client'] == 1 ? 'disabled' : false ));
+
+								echo $this->Form->input('clients_document.mc_send_client_date', array('type'=>'hidden'   ,  'value' => $employee['clients_document']['mc_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['mc_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['mc_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['mc_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['mc_receive_admin_date']).')</span>';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['mc_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="mc" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.mc_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox'  ,'disabled' => $employee['clients_document']['mc_receive_client'] == 1 ? 'disabled' : false ));
+								 echo $this->Form->input('clients_document.mc_receive_client_date', array('type'=>'hidden'  ,  'value' => $employee['clients_document']['mc_receive_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['mc_receive_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['mc_receive_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['mc_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Sent ('.$this->DateC->DateFormetforView($employee['clients_document']['mc_send_admin_date']).')</span>';
+							}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Emirates ID: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.eid_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox'  ,'disabled' => $employee['clients_document']['eid_send_client'] == 1 ? 'disabled' : false ));
+								 echo $this->Form->input('clients_document.eid_send_client_date', array('type'=>'hidden'  ,  'value' => $employee['clients_document']['eid_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['eid_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['eid_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['eid_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['eid_receive_admin_date']).')</span>';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['eid_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="eid" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.eid_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox'  ,'disabled' => $employee['clients_document']['eid_receive_client'] == 1 ? 'disabled' : false ));
+
+								echo $this->Form->input('clients_document.eid_receive_client_date', array('type'=>'hidden'  ,  'value' => $employee['clients_document']['eid_receive_client_date'] ));  ?><span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['eid_receive_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['eid_receive_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['eid_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Send ('.$this->DateC->DateFormetforView($employee['clients_document']['eid_send_admin_date']).')</span>';
+							}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Degree Certificate: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.dc_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['dc_send_client'] == 1 ? 'disabled' : false ));
+
+								echo $this->Form->input('clients_document.dc_send_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['dc_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['dc_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['dc_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['dc_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['dc_receive_admin_date']).')</span>';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['dc_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="dc" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.dc_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['dc_receive_client'] == 1 ? 'disabled' : false ));
+								 echo $this->Form->input('clients_document.dc_receive_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['dc_receive_client_date'] ));  ?><span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['dc_receive_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['dc_receive_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['dc_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Sent ('.$this->DateC->DateFormetforView($employee['clients_document']['dc_send_admin_date']).')</span>';
+							}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Medical: </td>
+                              <td width="45%">Sent</br>
+                                <?php echo $this->Form->input('clients_document.medical_send_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['medical_send_client'] == 1 ? 'disabled' : false ));
+								echo $this->Form->input('clients_document.medical_send_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['medical_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['medical_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['medical_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['medical_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received ('.$this->DateC->DateFormetforView($employee['clients_document']['medical_receive_admin_date']).')</span>';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['medical_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="medical" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php echo $this->Form->input('clients_document.medical_receive_client', array('class' => 'regular-checkbox persnal-doc-check', 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['medical_receive_client'] == 1 ? 'disabled' : false));
+
+								echo $this->Form->input('clients_document.medical_receive_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['medical_receive_client_date'] ));  ?><span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['medical_receive_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['medical_receive_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['medical_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Sent ('.$this->DateC->DateFormetforView($employee['clients_document']['medical_send_admin_date']).')</span>';
+							}
+					?>
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td width="10%">Other: </td>
+                              <td width="45%">Sent</br>
+                                <?php
+								$class =  $employee['clients_document']['other_receive_value'] != '' ? '' : 'other_doc' ;
+								 echo $this->Form->input('clients_document.other_send_client', array('class' => "regular-checkbox persnal-doc-check  $class", 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['other_send_client'] == 1 ? 'disabled' : false ));  ?>
+                                <?php echo $this->Form->input('clients_document.other_send_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['other_send_client_date'] ));  ?> <span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['other_send_client']){
+							echo $this->DateC->DateFormetforView($employee['clients_document']['other_send_client_date']);
+						}
+						?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['other_receive_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Received</span> ('.$this->DateC->DateFormetforView($employee['clients_document']['other_receive_admin_date']).')';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['other_send_client'] || $employee['clients_document']['other_receive_admin'] ){ ?>
+                                <div  class="other-doc-parent form_block">
+                                  <input readonly   type="text"  class="input_field" style="width: 90%; margin-top:10px" value="<?php echo $employee['clients_document']['other_receive_value'] ?>" />
+                                </div>
+                                <?php } ?>
+                                <?php if($employee['clients_document']['other_receive_client']){ ?>
+                                <span class="resend">
+                                <button type-id="<?php echo base64_encode($employee['clients_document']['id']); ?>" type="button" data-type="other" class="btn btn-primary btn-xs re-set-doc">Send again</button>
+                                </span>
+                                <?php }?></td>
+                              <td width="45%"> Received</br>
+                                <?php
+
+
+								$class =  ($employee['clients_document']['other_send_value']) != '' ? '' : 'other_doc' ;
+
+echo $this->Form->input('clients_document.other_receive_client', array('class' => "regular-checkbox persnal-doc-check $class ", 'label' => false, 'type'=>'checkbox' ,'disabled' => $employee['clients_document']['other_receive_client'] == 1 ? 'disabled' : false ));
+
+
+ ?>
+                                <?php echo $this->Form->input('clients_document.other_receive_client_date', array('type'=>'hidden' ,  'value' => $employee['clients_document']['other_receive_client_date'] ));  ?><span class="documents_date"> <span class="date">
+                                <?php if($employee['clients_document']['other_receive_client']){
+								echo $this->DateC->DateFormetforView($employee['clients_document']['other_receive_client_date']);
+								}
+							?>
+                                </span>
+                                <?php
+						if($employee['clients_document']['other_send_admin']){
+								echo '<span class="doc-status" ><i class="btn btn-primary btn-sm fa fa-check"aria-hidden="true"></i> Send</span> ('.$this->DateC->DateFormetforView($employee['clients_document']['other_send_admin_date']).')';
+							}
+					?>
+                                </span>
+                                <?php if($employee['clients_document']['other_receive_client'] || $employee['clients_document']['other_send_admin'] ){ ?>
+                                <div  class="other-doc-parent form_block">
+                                  <input readonly   type="text"  class="input_field" style="width: 90%; margin-top:10px;" value="<?php echo $employee['clients_document']['other_receive_value'] ?>" required />
+                                </div>
+                                <?php } ?></td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        <?php $indexloop++; echo $this->Form->end(); ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="documents-view_<?php echo $employee->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="exampleModalLabel">Attached Documents</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        </div>
+                        <div class="modal-body person_documents">
+                          <div class="row">
+                            <?php
+				if(count($employee['documents']) > 0){
+                	foreach($employee['documents'] as $ca){
+                ?>
+                            <div style='float:left; text-align: center; ' class='col-lg-2 attachments'>
+                              <h5 class='attachment_title'><?php echo $ca['aTitle']; ?></h5>
+                              <?php
+                if (strpos($ca['file'], '.png') !== false || strpos($ca['file'], '.jpg') !== false || strpos($ca['file'], '.jpeg') !== false ) { ?>
+                              <a target="_blank" href="<?php echo BASE_URL;?>/client/employees/files/<?php echo base64_encode($ca->id); ?>"><img src='<?php echo BASE_URL;?>/attachments/center/img.png' style='width:100px;height:100px;'></a>
+                              <?php } else { ?>
+                              <a target="_blank"  href="<?php echo BASE_URL;?>/client/employees/files/<?php echo base64_encode($ca->id); ?>"><img src='<?php echo BASE_URL;?>/attachments/center/text.png' style='width:100px;height:100px;'></a>
+                              <?php }	?>
+							  <br>
+							  <a style="color: #3c8dbc;"  href='<?php echo BASE_URL."/client/employees/DownloadEmployeeDocument/".base64_encode($ca->id);?>' >Download</a>
+                            </div>
+                            <?php
+            		}
+				}else{
+					echo '<h5>No Documents Attached</h5>';
+				}
+				?>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div></td>
+              </tr>
+              <?php }		}else{ ?>
+              <tr>
+                <td colspan="10" class="no_record">No Record Found</td>
+              </tr>
+              <?php } ?>
+            </thead>
+          </table>
+        </div>
+        <div class="table_page_info">
+          <div class="row">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
+              <p> <?php echo $this->Paginator->counter('Showing {{start}} to {{end}} of {{count}}');?> </p>
+            </div>
+            <div class="col-lg-7 col-sm-7 col-xs-12">
+              <ul class="pagination">
+                <?php echo $this->Paginator->prev('  ' . __('Previous'));?> <?php echo $this->Paginator->numbers();?> <?php echo $this->Paginator->next('  ' . __('Next'));?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<?php echo $this->Html->script('client/search_report',['block'=>'scriptBottom']); ?> <?php echo $this->Html->script('admin/employee_attachment',['block'=>'scriptBottom']); ?>
+<script>
+	$('#attac_upload').parsley();
+</script>
+<style>
+.parsley-errors-list{padding:0;list-style:none;color:red;}
+</style>
+<script>
+$(document).on('click', '#close-preview', function(){
+    $('.image-preview').popover('hide');
+    // Hover befor close the preview
+});
+
+$(function() {
+    // Create the close button
+    var closebtn = $('<button/>', {
+        type:"button",
+        text: 'x',
+        id: 'close-preview',
+        style: 'font-size: initial;',
+    });
+    closebtn.attr("class","close pull-right");
+
+    // Clear event
+    $('.image-preview-clear').click(function(){
+        $('.image-preview').attr("data-content","").popover('hide');
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse");
+    });
+    // Create the preview image
+    $(".image-preview-input input:file").change(function (){
+        var img = $('<img/>', {
+            id: 'dynamic',
+            width:250,
+            height:200
+        });
+        var file = this.files[0];
+        var reader = new FileReader();
+        // Set preview image into the popover data-content
+        reader.onload = function (e) {
+            $(".image-preview-input-title").text("Change");
+            $(".image-preview-clear").show();
+            $(".image-preview-filename").val(file.name);
+        }
+        reader.readAsDataURL(file);
+    });
+
+		$(".person_documents input").change(function() {
+			if(this.checked) {
+				//console.log($(this).parent().parent().children('.documents_date').children('.date').html());
+				$(this).parent().parent().children('.documents_date').children('.date').html(formatDate(new Date()));
+				date = new Date()
+				$('input#'+$(this).attr('id')+'-date').val(date.getDate()+'/'+ (date.getMonth()+1) +'/'+ date.getFullYear());
+			}else{
+				$('input[name="'+$(this).attr('name')+'_date"]').val('');
+				$(this).parent().parent().children('.documents_date').children('.date').html('');
+			}
+		});
+
+	function formatDate(date) {
+		var monthNames = [
+			"Jan", "Feb", "March",
+			"April", "May", "June", "July",
+			"Aug", "Sep", "Oct",
+			"Nov", "Dec"
+		];
+
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+		return day + ' ' + monthNames[monthIndex] + ' ' + year;
+	}
+
+	$('.other_doc').change(function() {
+		if(this.checked) {
+			var name = $(this).attr('name');
+			name = name.replace('_client','_value');
+			//console.log($(this).parent().parent('td').html());
+			$(this).parent().parent('td').append('<div  class="other-doc-parent form_block"><input  name="'+name+'" type="text"  class="input_field" style="width: 90%; margin-top:10px" required /></div>');
+		}else{
+			$(this).parent().parent().children('.other-doc-parent').remove();
+		}
+	});
+	$('.re-set-doc').click(function(){
+			type_id   = $(this).attr('type-id');
+			data_type = $(this).attr('data-type');
+			data = {'type_id' : type_id,'data_type' : data_type };
+			//console.log();
+			//console.log($(this)); return false;
+			$.ajax({
+				url: webroot+'/client/employees/re_set',
+				data : data,
+				cache: false,
+				type:'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+				context : this,
+				success: function(html){
+					html = JSON.parse(html);
+					if(html.status == true){
+						if(data_type == 'other'){
+							$(this).parent().parent('td').parent('tr').find('.input_field').remove();
+						}
+						$(this).parent().parent('td').next().children('.documents_date').children().html('');
+						$(this).parent().siblings('.documents_date').children().html('');
+						$('#clients-document-'+data_type+'-send-client').attr('checked', false);
+						$('#clients-document-'+data_type+'-receive-client').attr('checked', false);
+
+						$('#clients-document-'+data_type+'-send-client').attr('disabled', false);
+						$('#clients-document-'+data_type+'-receive-client').attr('disabled', false);
+
+						$('#clients-document-'+data_type+'-send-client-date').val('');
+						$('#clients-document-'+data_type+'-receive-client-date').val('');
+						$(this).parent().parent('td').next().children('.documents_date').children().html('');
+						$(this).parent().remove();
+						$('#clients-document-'+data_type+'-send-client').trigger('click');
+					}
+				}
+			});
+		});
+});
+</script>
+<style>
+.person_documents .table tr td:nth-child(2),.person_documents .table tr td:nth-child(3){
+	    text-align: left;
+}
+@media (min-width: 767px) {
+	.modal-dialog {
+		width: 800px !important;
+	}
+}
+.attachments {
+   	height: auto;
+}
+    .icon-stack {
+      position: relative;
+      display: inline-block;
+         width: 1em;
+    height: 2em;
+      line-height: 2em;
+      vertical-align: middle;
+    }
+    .icon-stack-1x,
+    .icon-stack-2x,
+    .icon-stack-3x {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      text-align: right;
+    }
+    .icon-stack-1x {
+      line-height: inherit;
+    }
+    .icon-stack-2x , .fa-file {
+      font-size: 1.5em;
+    }
+    .icon-stack-3x {
+      font-size: 2em;
+    }
+	.fa-eye{
+		color: #000;
+    font-size: 14px;
+	}
+	.doc-status .btn{
+		cursor: default;
+	}
+</style>

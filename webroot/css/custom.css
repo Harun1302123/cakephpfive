@@ -1,0 +1,109 @@
+@media (max-width:1200px) {
+.container{ width:96%; margin:0 auto; padding:0;}
+.nav_sec .navbar-default .navbar-nav > li > a{ padding:34px 10px 33px 10px; font-size:14px;}
+.course_inn{ padding:0;}
+.slider_sec .caption h2{ font-size:30px;}
+.welcome_sec p{ font-size:13px; line-height:25px;}
+.info_contact .right_info{ padding:0;}
+}
+
+/************ Main **************/
+@media (max-width: 960px) {
+.nav_sec .navbar-default .navbar-brand{ width:210px; margin-top:20px;}
+.nav_sec .navbar-default .navbar-nav > li > a{ padding:34px 5px 33px 5px; font-size:13px;}
+.slider_sec .caption{ bottom:30px;}
+.slider_sec .caption h2{ font-size:25px; padding:15px 20px;}
+.course_sec ul li{ font-size:14px;}
+.inner_info{ padding:60px 0 0 0;}
+.inner_banner h2{ font-size:30px;}
+
+.course_block p{ font-size:13px; line-height:25px;}
+}
+
+@media (max-width: 767px) {
+.dash-res{display:none;}	
+html { -webkit-text-size-adjust:none;}
+.container{ width:93%; margin:0 auto; padding:0;}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{ border:none; box-shadow:none;}
+.nav_sec .navbar-nav{ float:none; margin:10px 0 0 0;border: medium none !important;}
+.navbar-default .navbar-toggle{ border-color:#37c1f0; margin:10px 0 0 0; border-radius:0;border:none !important;}
+.navbar-default .navbar-toggle .icon-bar{ background:#37c1f0;}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{ background:none;}
+.nav_sec{ padding:15px 0;}
+.nav_sec .navbar-default .navbar-brand{ margin:0;}
+
+.nav_sec .navbar-default .navbar-nav > li > a{ padding:10px 20px; margin:1px 0; font-size:14px; border-bottom:1px solid #595959;}
+
+.nav_sec .navbar-default .navbar-nav > li > a:hover, .nav_sec .navbar-default .navbar-nav > li > a:focus{ border-bottom:1px solid #37c1f0;}
+.nav_sec .navbar-default .navbar-nav > .open > a, .nav_sec .navbar-default .navbar-nav > .open > a:hover, .nav_sec .navbar-default .navbar-nav > .open > a:focus{ border-bottom:1px solid #37c1f0;}
+.nav_sec .navbar-default .navbar-nav > .active > a, .nav_sec .navbar-default .navbar-nav > .active > a:hover, .nav_sec .navbar-default .navbar-nav > .active > a:focus{ border-bottom:1px solid #37c1f0;}
+
+.slider_sec .carousel-inner > .item > img, .slider_sec .carousel-inner > .item > a > img{ min-height:170px;}
+.slider_sec .carousel-control { margin:-17px 0 0 0; top:50%; width:35px; height:35px; font-size:30px; line-height:35px;}
+.slider_sec .carousel-control.left{ left:5px;}
+.slider_sec .carousel-control.right{ right:5px;}
+.slider_sec .caption{ bottom:15px; text-align:center;}
+.slider_sec .caption h2{ font-size:17px; padding:15px; float:none; display:inline-block;}
+.global_title{ font-size:26px;}
+.course_sec figure{ margin:30px 0;}
+
+.form_sec{ padding:20px; margin-top:40px;}
+.inner_info{ font-size:13px; line-height:25px; padding-top:40px;}
+.info_contact .right_info{ padding:50px 0 0 0;}
+.course_list{ padding-top:40px;}
+.course_block{ padding-top:4px;}
+.course_block h3{ font-size:17px;}
+.vrify_info figure{ margin:20px 0;}
+}
+
+/************ iphone **************/
+@media (max-width:600px) {
+html { -webkit-text-size-adjust:none;}
+.f-div .col-lg-12.col-sm-12.col-xs-12 {
+  padding: 0 !important;
+}
+.container{ width:91%;}
+.login_sec .login_inner{ padding:20px 30px 10px;}
+}
+
+
+@media (max-width:480px) {
+div.f-div{width:100%;}	
+.top_part .inner{ width:100%; float:left; text-align:center;}
+.top_part .top_info{ text-align:center; margin:0; padding:0 15px 0 0;}
+.top_part .top_info i{ position:relative; margin:0 15px 0 0;}
+.top_part .loing_link{ float:right;}
+}
+@media(min-width:1200px) { 
+.item > img {
+    height: 640px !important;
+    object-fit: cover;
+}
+}  
+@media(max-width:991px) { 
+div.space-h{height:118px;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{ border:none; box-shadow:none;} 
+.nav_sec .navbar-nav{ float:none; margin:10px 0 0 0;border: medium none !important;}
+.navbar-default .navbar-toggle{ border-color:#37c1f0; margin:10px 0 0 0; border-radius:0;border:none !important;float: right;}
+.navbar-default .navbar-toggle .icon-bar{ background:#37c1f0;}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{ background:none;}
+.navbar-nav > li{width:100%;}
+.nav_sec{ padding:15px 0;}
+.nav_sec .navbar-default .navbar-brand{ margin:0;}
+
+.nav_sec .navbar-default .navbar-nav > li > a{ padding:10px 20px; margin:1px 0; font-size:14px; border-bottom:1px solid #595959;}
+
+.nav_sec .navbar-default .navbar-nav > li > a:hover, .nav_sec .navbar-default .navbar-nav > li > a:focus{ border-bottom:1px solid #37c1f0;}
+.nav_sec .navbar-default .navbar-nav > .open > a, .nav_sec .navbar-default .navbar-nav > .open > a:hover, .nav_sec .navbar-default .navbar-nav > .open > a:focus{ border-bottom:1px solid #37c1f0;}
+.nav_sec .navbar-default .navbar-nav > .active > a, .nav_sec .navbar-default .navbar-nav > .active > a:hover, .nav_sec .navbar-default .navbar-nav > .active > a:focus{ border-bottom:1px solid #37c1f0;}
+.collapse.navbar-collapse {
+  display: none;
+  visibility: hidden;
+}
+.collapse.navbar-collapse.in {
+  display: block;
+  visibility: visible;
+}
+#bs-example-navbar-collapse-1{width:100%;}
+}

@@ -1,0 +1,13 @@
+2024-08-30 15:12:16 error: [Cake\Core\Exception\MissingPluginException] Plugin `Authentication` could not be found. in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Core/PluginCollection.php on line 190
+Exception Attributes: array (
+  'plugin' => 'Authentication',
+)
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Core/PluginCollection.php:314
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:139
+- /home/harunur/cakephpfive/src/Application.php:19
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Console/CommandRunner.php:190
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Console/CommandRunner.php:137
+- /home/harunur/cakephpfive/bin/cake.php:10
+- [main]:
+

@@ -1,0 +1,431 @@
+<?php
+namespace App\Controller\Client;
+use App\Controller\AppController;
+use Cake\Event\Event; 
+use Cake\ORM\Table;
+use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\TableRegistry;
+use Cake\Collection\Collection;
+/**
+ * Centers Controller
+ *
+ * @property \App\Model\Table\CentersTable $Centers
+ */
+class ReportsController extends AppController
+{
+	
+	 public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+		
+    }
+
+	public function beforeFilter(Event $event){
+		$this->viewBuilder()->layout('client');
+		parent::beforeFilter($event);
+		
+    }
+
+    public function index()
+    {
+       
+    }
+	
+	/*
+	 * Function name 	: Manage
+	 * Description 		: View All Data for Transactions
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 28-Dec-2016
+	 */
+	
+	public function transaction(){
+		$this->paginate = [
+            'limit' => 5,
+			'order'=>['name'=>'ASC'],
+			'contain' => ['Companies','Transactions','TransactionTypes']
+			
+        ];
+
+		$followTable 	= tableRegistry::get('CompanyTransactions');	
+
+		$conditions = [];
+		if($this->request->params['isAjax']){
+			if(isset($_GET['for_whom']) && !empty($_GET['for_whom'])){
+				array_push($conditions,array(['CompanyTransactions.for_whom' => $_GET['for_whom']]));
+			}
+
+			if(isset($_GET['company_id']) && !empty($_GET['company_id'])){
+				array_push($conditions,array(['CompanyTransactions.company_id' => $_GET['company_id']]));
+			}
+
+			if(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])){
+				array_push($conditions,array(['CompanyTransactions.transaction_id' => $_GET['transaction_id']]));
+			}
+
+			if(isset($_GET['transaction_type_id']) && !empty($_GET['transaction_type_id'])){
+				array_push($conditions,array(['CompanyTransactions.transaction_type_id' => $_GET['transaction_type_id']]));
+			}
+
+			if(isset($_GET['starting_date']) && !empty($_GET['starting_date'])){
+				array_push($conditions,array(['CompanyTransactions.starting_date' => $_GET['starting_date']]));
+			}
+
+			if(isset($_GET['completion_date']) && !empty($_GET['completion_date'])){
+				array_push($conditions,array(['CompanyTransactions.completion_date' => $_GET['completion_date']]));
+			}
+
+			if($this->request->query('email_or_name')){
+				$searchQuery = $this->request->query('email_or_name');
+				array_push($conditions,['OR' =>[['CompanyTransactions.email LIKE' =>'%'.trim($searchQuery).'%'] , ['CompanyTransactions.name LIKE' =>'%'.trim($searchQuery).'%']]]);
+			}
+
+		}
+
+		$follows = $followTable->find('all')->where($conditions);
+		$follow 		= $this->paginate($follows);
+
+		$companyTable 	= tableRegistry::get('Companies');
+		$transactionTypesTable 	= tableRegistry::get('TransactionTypes');
+		$transactionsTable 	= tableRegistry::get('Transactions');
+
+		$companies = $companyTable->find('list');
+		$transactions_type_ids = $transactionTypesTable->find('list');
+		$transactions = $transactionsTable->find('list');
+		
+		$this->set('follow',$follow);
+		$this->set('companies',$companies);
+		$this->set('transactions',$transactions);
+		$this->set('transactions_type_ids',$transactions_type_ids);
+	
+	}
+	
+	/*
+	 * Function name 	: Employee
+	 * Description 		: View All Data for Employee
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 28-Dec-2016
+	 */
+	
+	public function employee(){		
+
+		$this->paginate = [
+            'limit' => 5,
+			'order'=>['name'=>'ASC'],
+			'contain' => ['Companies','Transactions','TransactionTypes']
+			
+        ];
+		
+		$followTable 	= tableRegistry::get('CompanyTransactions');
+		$follow 		= $this->paginate($followTable->find('all')->where(['CompanyTransactions.for_whom' => 1]));        
+		$this->set('follow',$follow);
+			
+	}
+	
+	/*
+	 * Function name 	: Manage
+	 * Description 		: View All Data for Dependent 
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 28-Dec-2016
+	 */
+	
+	public function dependent(){
+
+		$this->paginate = [
+            'limit' => 5,
+			'order'=>['name'=>'ASC'],
+			'contain' => ['Companies','Transactions','TransactionTypes']
+			
+        ];
+		
+		$followTable 	= tableRegistry::get('CompanyTransactions');
+		$follow 		= $this->paginate($followTable->find('all')->where(['CompanyTransactions.for_whom' => 2]));        
+		$this->set('follow',$follow);
+		
+		
+	}
+
+	public function employee_report(){
+		$this->paginate = [
+            'limit' => 5,
+			'order'=>['id'=>'DESC'],
+		
+        ];
+		$conditions = [];
+		array_push($conditions,array(['CompanyTransactions.company_id' => $this->Auth->user('company_id')]));
+
+		if($this->request->params['isAjax']){
+			if(isset($_GET['for_whom']) && !empty($_GET['for_whom'])){
+				array_push($conditions,array(['CompanyTransactions.for_whom' => $_GET['for_whom']]));
+			}
+
+			if(isset($_GET['company_id']) && !empty($_GET['company_id'])){
+				array_push($conditions,array(['CompanyTransactions.company_id' => $_GET['company_id']]));
+			}
+
+			if(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])){
+				array_push($conditions,array(['CompanyTransactions.transaction_id' => $_GET['transaction_id']]));
+			}
+
+			if(isset($_GET['transaction_type_id']) && !empty($_GET['transaction_type_id'])){
+				array_push($conditions,array(['CompanyTransactions.transaction_type_id' => $_GET['transaction_type_id']]));
+			}
+
+			if(isset($_GET['starting_date']) && !empty($_GET['starting_date'])){
+				array_push($conditions,array(['CompanyTransactions.starting_date' => $_GET['starting_date']]));
+			}
+
+			if(isset($_GET['completion_date']) && !empty($_GET['completion_date'])){
+				array_push($conditions,array(['CompanyTransactions.completion_date' => $_GET['completion_date']]));
+			}
+
+			if($this->request->query('email_or_name')){
+				$searchQuery = $this->request->query('email_or_name');
+				array_push($conditions,['OR' =>[['CompanyTransactions.email LIKE' =>'%'.trim($searchQuery).'%'] , ['CompanyTransactions.name LIKE' =>'%'.trim($searchQuery).'%']]]);
+			}
+			
+		}
+
+		$compnyTransTbale 			= tableRegistry::get('CompanyTransactions');
+		$full_trans_record_data 	= $compnyTransTbale->find('all')
+			                                            ->where($conditions)
+														->select(['Employees.id','Employees.name','Employees.ps_number','Employees.email'])
+														->autoFields(true)
+														->contain(['Companies','Transactions','TransactionTypes'])
+														->join([
+																'employees' => [
+																	'table' => 'employees',
+																	'alias'=> 'Employees',
+																	'type' => 'INNER',
+																	'conditions' => 'Employees.name = CompanyTransactions.name'
+																]
+														]);
+												
+		$companyTable 	= tableRegistry::get('Companies');
+		$transactionTypesTable 	= tableRegistry::get('TransactionTypes');
+		$transactionsTable 	= tableRegistry::get('Transactions');
+
+		$companies = $companyTable->find('list')->where(['id'=> $this->Auth->user('company_id')]);
+		$transactions_type_ids = $transactionTypesTable->find('list');
+		$transactions = $transactionsTable->find('list');
+
+		$full_trans_records 		= $this->paginate($full_trans_record_data);								  
+														
+		$this->set('full_trans_records',$full_trans_records);
+		$this->set('companies',$companies);
+		$this->set('transactions',$transactions);
+		$this->set('transactions_type_ids',$transactions_type_ids);
+	
+	}
+
+	/*
+	 * Function name 	: excel
+	 * Description 		: to generate excel data of the comny transaction 
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 28-APR-2017
+	 */
+
+	public function excel(){
+		$this->viewBuilder()->layout('ajax');
+		$this->paginate = [
+            'limit' => 500,
+			'order'=>['name'=>'ASC'],
+			'contain' => ['Companies','Transactions','TransactionTypes']
+			
+        ];
+
+		$followTable 	= tableRegistry::get('CompanyTransactions');	
+
+		$conditions = [];
+		array_push($conditions,array(['CompanyTransactions.company_id' => $this->Auth->user('company_id')]));
+		
+		if(isset($_GET['for_whom']) && !empty($_GET['for_whom'])){
+			array_push($conditions,array(['CompanyTransactions.for_whom' => $_GET['for_whom']]));
+		}
+
+		if(isset($_GET['company_id']) && !empty($_GET['company_id'])){
+			array_push($conditions,array(['CompanyTransactions.company_id' => $_GET['company_id']]));
+		}
+
+		if(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_id' => $_GET['transaction_id']]));
+		}
+
+		if(isset($_GET['transaction_type_id']) && !empty($_GET['transaction_type_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_type_id' => $_GET['transaction_type_id']]));
+		}
+
+		if(isset($_GET['starting_date']) && !empty($_GET['starting_date'])){
+			array_push($conditions,array(['CompanyTransactions.starting_date' => $_GET['starting_date']]));
+		}
+
+		if(isset($_GET['completion_date']) && !empty($_GET['completion_date'])){
+			array_push($conditions,array(['CompanyTransactions.completion_date' => $_GET['completion_date']]));
+		}
+
+		if($this->request->query('email_or_name')){
+			$searchQuery = $this->request->query('email_or_name');
+			array_push($conditions,['OR' =>[['CompanyTransactions.email LIKE' =>'%'.trim($searchQuery).'%'] , ['CompanyTransactions.name LIKE' =>'%'.trim($searchQuery).'%']]]);
+		}
+
+		
+
+		$follows = $followTable->find('all')->where($conditions);
+		$follow 		= $this->paginate($follows);
+
+		header("Content-Type: application/xls");
+		header("Content-Disposition:attachment;filename=download.xls");
+		//pr($follow);die;
+		$this->set('follow',$follow);
+	
+	}
+
+	/*
+	 * Function name 	: excel_full
+	 * Description 		: to generate excel data of the comny transaction 
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 19-May-2017
+	 */
+	
+	public function excel_full(){
+		$this->viewBuilder()->layout('ajax');
+		$this->paginate = [
+            'limit' => 500,
+			'order'=>['id'=>'DESC'],
+		
+        ];
+
+		$conditions = [];
+		array_push($conditions,array(['CompanyTransactions.company_id' => $this->Auth->user('company_id')]));
+
+		if(isset($_GET['for_whom']) && !empty($_GET['for_whom'])){
+			array_push($conditions,array(['CompanyTransactions.for_whom' => $_GET['for_whom']]));
+		}
+
+		if(isset($_GET['company_id']) && !empty($_GET['company_id'])){
+			array_push($conditions,array(['CompanyTransactions.company_id' => $_GET['company_id']]));
+		}
+
+		if(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_id' => $_GET['transaction_id']]));
+		}
+
+		if(isset($_GET['transaction_type_id']) && !empty($_GET['transaction_type_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_type_id' => $_GET['transaction_type_id']]));
+		}
+
+		if(isset($_GET['starting_date']) && !empty($_GET['starting_date'])){
+			array_push($conditions,array(['CompanyTransactions.starting_date' => $_GET['starting_date']]));
+		}
+
+		if(isset($_GET['completion_date']) && !empty($_GET['completion_date'])){
+			array_push($conditions,array(['CompanyTransactions.completion_date' => $_GET['completion_date']]));
+		}
+
+		if($this->request->query('email_or_name')){
+			$searchQuery = $this->request->query('email_or_name');
+			array_push($conditions,['OR' =>[['CompanyTransactions.email LIKE' =>'%'.trim($searchQuery).'%'] , ['CompanyTransactions.name LIKE' =>'%'.trim($searchQuery).'%']]]);
+		}
+			
+
+
+		$compnyTransTbale 		= tableRegistry::get('CompanyTransactions');
+		$Transactions 			= tableRegistry::get('Transactions');
+		$full_trans_record_data = $compnyTransTbale->find('all')
+			                                            ->where($conditions)
+														->select(['Employees.id','Employees.name','Employees.ps_number','Employees.email'])
+														//->select(['sum_govt' => $Transactions->func()->sum('Transactions.gov_fees')])
+														->autoFields(true)
+														->contain(['Companies','Transactions','TransactionTypes'])
+														->join([
+																'employees' => [
+																	'table' => 'employees',
+																	'alias'=> 'Employees',
+																	'type' => 'INNER',
+																	'conditions' => 'Employees.name = CompanyTransactions.name'
+																]
+														]);
+		header("Content-Type: application/xls");
+		header("Content-Disposition:attachment;filename=employee_report.xls");
+		$full_trans_records 		= $this->paginate($full_trans_record_data);								  
+		
+		$this->set('full_trans_records',$full_trans_records);
+		
+	}
+
+
+	public function company_total_fees(){
+		$this->viewBuilder()->layout('ajax');
+		$compnyTransTbale 			= tableRegistry::get('CompanyTransactions');
+
+		$conditions = [];
+		array_push($conditions,array(['CompanyTransactions.company_id' => $this->Auth->user('company_id')]));
+
+		if(isset($_GET['for_whom']) && !empty($_GET['for_whom'])){
+			array_push($conditions,array(['CompanyTransactions.for_whom' => $_GET['for_whom']]));
+		}
+
+		if(isset($_GET['company_id']) && !empty($_GET['company_id'])){
+			array_push($conditions,array(['CompanyTransactions.company_id' => $_GET['company_id']]));
+		}
+
+		if(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_id' => $_GET['transaction_id']]));
+		}
+
+		if(isset($_GET['transaction_type_id']) && !empty($_GET['transaction_type_id'])){
+			array_push($conditions,array(['CompanyTransactions.transaction_type_id' => $_GET['transaction_type_id']]));
+		}
+
+		if(isset($_GET['starting_date']) && !empty($_GET['starting_date'])){
+			array_push($conditions,array(['CompanyTransactions.starting_date' => $_GET['starting_date']]));
+		}
+
+		if(isset($_GET['completion_date']) && !empty($_GET['completion_date'])){
+			array_push($conditions,array(['CompanyTransactions.completion_date' => $_GET['completion_date']]));
+		}
+
+		if($this->request->query('email_or_name')){
+			$searchQuery = $this->request->query('email_or_name');
+			array_push($conditions,['OR' =>[['CompanyTransactions.email LIKE' =>'%'.trim($searchQuery).'%'] , ['CompanyTransactions.name LIKE' =>'%'.trim($searchQuery).'%']]]);
+		}
+
+		$companyTrans = $compnyTransTbale->find()
+										 ->where($conditions)
+										 ->select([
+											 'company_id' =>'CompanyTransactions.company_id',
+											 'govt_sum' => 'SUM(Transactions.gov_fees)',
+											 'typing_sum' => 'SUM(Transactions.typing_fees)',
+											 'total_fees' => 'SUM(Transactions.gov_fees + Transactions.typing_fees)',
+											 'company_name'=>'Companies.name'
+										   ]) 
+										 ->autoFields(true)
+										 ->join([
+												'transactions' => [
+													'table' => 'transactions',
+													'alias'=> 'Transactions',
+													'type' => 'INNER',
+													'conditions' => 'Transactions.id = CompanyTransactions.transaction_id'
+												],
+												'company' => [
+													'table' => 'companies',
+													'alias'=> 'Companies',
+													'type' => 'INNER',
+													'conditions' => 'Companies.id = CompanyTransactions.company_id'
+												]
+											])
+										 ->group('CompanyTransactions.company_id')->toArray();
+
+					          
+		foreach($companyTrans as $key=>$cmtrans){
+			$companyTrans[$key]['total_expence']	= $cmtrans['govt_sum'] + $cmtrans['typing_sum'];
+
+		}
+		
+		header("Content-Type: application/xls");
+		header("Content-Disposition:attachment;filename=employee_total_fees.xls");
+		$this->set('companyTrans',$companyTrans);
+	  
+	}
+   	
+}

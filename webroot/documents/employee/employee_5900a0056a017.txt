@@ -1,0 +1,41 @@
+SELECT * FROM dims_firmprospects.attorneys where attorneyBio like '%&#39;%';
+SELECT count(*) FROM attorneys where attorneyBio like '%&amp;%';
+
+SELECT * FROM dims_firmprospects.attorneys where attorneys.id = 5;
+
+
+UPDATE attorneys SET attorneyBio = REPLACE(attorneyBio, '&amp;', '&') WHERE attorneyBio LIKE '%&amp;%';
+UPDATE attorneys SET attorneyBio = REPLACE(attorneyBio, '&#39;', '’') WHERE attorneyBio LIKE '%&#39;%';
+
+
+
+
+
+
+
+SELECT count(*) FROM attorneys where attorneyBio like '%&acute;%';
+
+SELECT count(*) FROM attorneys where attorneyBio like '%&#180;%';
+
+UPDATE attorneys SET attorneyBio = REPLACE(attorneyBio, '&acute;', '´') WHERE attorneyBio LIKE '%&acute;%';
+
+
+
+
+
+
+select attorneyBio from attorneys where attorneyBio REGEXP '\&[a-z0-9A-Z]+\;'
+
+
+
+select attorneyBio from attorneys where attorneyBio REGEXP '\&[a-z0-9A-Z]+\;' limit 0, 500;
+
+select count(*) from attorneys where attorneyBio REGEXP '\&[a-z0-9A-Z]+\;';
+
+select count(*) from jobs where jobDescription REGEXP '\&[a-z0-9A-Z]+\;';
+
+
+
+select count(*) from jobs where jobTitle REGEXP '\&[a-z0-9A-Z]+\;';
+
+

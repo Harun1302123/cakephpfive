@@ -1,0 +1,213 @@
+2024-08-27 20:01:41 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /Users/login
+Referer URL: http://localhost:8765/admin/reports/send_recieve
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 319
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-27 20:04:32 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 319
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-27 20:05:28 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 319
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-27 20:05:31 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 319
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 15:19:13 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 311
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 16:00:12 notice: Undefined property `UsersController::$Auth` in `/home/harunur/cakephpfive/src/Controller/UsersController.php` on line 33
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 311
+Cake\Controller\Controller->__get() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 33
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 16:40:50 debug: Creation of dynamic property App\Controller\Component\AuthComponent::$loginAction is deprecated
+Request URL: /
+Client IP: 127.0.0.1
+Trace:
+App\Controller\AppController->beforeFilter() /home/harunur/cakephpfive/src/Controller/UsersController.php, line 38
+App\Controller\UsersController->beforeFilter() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 597
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 129
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 114
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 169
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+

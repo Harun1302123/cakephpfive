@@ -1,0 +1,465 @@
+<?php
+namespace App\Controller\Client;
+use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Inflector;
+use Cake\Collection\Collection;
+
+class DependentsController extends AppController
+{
+	public $paginate = [
+				'limit' => 10,
+				'order' => [
+					'Dependents.id' => 'DESC'
+				]
+			];
+
+	public function initialize()
+	{
+		parent::initialize();
+		
+	}
+
+	public function beforeFilter(Event $event){
+		parent::beforeFilter($event);
+		$this->viewBuilder()->layout('client');
+    }
+	
+	/**
+	 * Function name 	: index 
+	 * Description 		: list Dependents 
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 18-May-2017
+	 */
+
+	public function index($id = null){
+		$this->paginate = [
+            'limit' => 10,
+			'order'=>['id'=>'DESC'],
+			'contain' => ['Employees']				
+        ];
+	
+		$conditions = [];
+		$employeeTable 	= tableRegistry::get('Employees');
+		$employees = $employeeTable->find('all')
+									->select(['ids'=>'Employees.id'])
+			                        ->hydrate(false)
+									->join([
+											'Clients'=>[
+												'table'=>'clients',
+												'aliase'=>'Clients',
+												'conditions'=>['Employees.company_id = Clients.company_id', 'Clients.id' => $this->Auth->user('id')]
+											]
+										]);
+		
+		$collection = new Collection($employees);
+		$employees_ids = $collection->extract('ids');
+		$ids = $employees_ids->toArray();
+
+		if(empty($ids)){
+			$this->Flash->error(__('There is no dependent. Please add atleast one employee and his/her dependent'));
+			return $this->redirect(['controller'=>'employees', 'action'=> 'index']);
+		}
+
+		array_push($conditions,['Dependents.employee_id IN' => $ids]);
+		
+		
+		if($this->request->params['isAjax']){
+
+			if(isset($_GET['employee_id']) && !empty($_GET['employee_id'])){
+				array_push($conditions,array(['Dependents.employee_id' => $_GET['employee_id']]));
+			}
+
+			if($this->request->query('email_or_name')){
+				$searchQuery = $this->request->query('email_or_name');
+				array_push($conditions,array(['Dependents.name LIKE' =>'%'.trim($searchQuery).'%']));
+			}
+		}
+	
+		$dependents = $this->paginate($this->Dependents->find('all')->where($conditions));
+	
+		$employeeTable 	= tableRegistry::get('Employees');
+		$employees = $employeeTable->find('list')->where(['Employees.id IN' => $ids ]);
+		$this->set('dependents',$dependents);
+		$this->set('employees',$employees);
+
+	}
+	
+	/**
+	 * Function name 	: add 
+	 * Description 		: Add Dependents related Information
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 18-May-2017
+	 */
+
+	public function add($emp_id = null ,$refere = null){	
+		
+		$dependent 		= $this->Dependents->newEntity();
+
+		if ($this->request->is('post')) {
+
+			$this->request->data['passport_exp_date']		= $this->request->data['passport_exp_date_cus'];
+			$this->request->data['entry_permit_exp_date']	= $this->request->data['entry_permit_exp_date_cus'];
+			$this->request->data['visa_exp_date']			= $this->request->data['visa_exp_date_cus'];
+			$this->request->data['emiratesID_exp_date']		= $this->request->data['emiratesID_exp_date_cus'];
+			$this->request->data['health_card_exp_date']	= $this->request->data['health_card_exp_date_cus'];
+			$this->request->data['created']				    = date('Y-m-d h:i:s');
+			
+			$dependent 	= $this->Dependents->patchEntity($dependent, $this->request->data);
+		//	$dependent->user_id = $this->Auth->user('id');
+			if($this->Dependents->save($dependent)){
+				$documents = TableRegistry::get('Documents');
+				if(isset($this->request->data['files'][0]['tmp_name']) && !empty($this->request->data['files'][0]['tmp_name'])){
+					foreach($this->request->data['files'] as $file){
+						$data = pathinfo($file['name']);
+						$ext = $data['extension'];
+						$tmp_name = $file['tmp_name'];
+						$newName = 'dependent_'.uniqid().'.'.$ext;
+
+						$cimage = $documents->newEntity();
+						$cimage->related_id = $dependent->id;
+						$cimage->eTitle 	 = 'dependent';
+						$cimage->sectionName = 'dependent';
+						$cimage->file = $newName; 
+
+						if($documents->save($cimage)){
+							move_uploaded_file($tmp_name, "documents/dependent/".$newName);
+						}
+					}
+				}
+
+				if(!empty($emp_id)){
+					return $this->redirect('/client/companies/add_transaction');
+				}
+				$this->Flash->success(__('Dependent has been saved'));
+				return $this->redirect(['action' => 'index']);
+			}
+
+			$this->Flash->error(__('Dependent could not be save'));
+			return $this->redirect(['action' => 'add']);
+			
+		}
+
+		$employeeTable 	= tableRegistry::get('Employees');
+		$employees_collect = $employeeTable->find('all')
+									->select(['ids'=>'Employees.id'])
+			                        ->hydrate(false)
+									->join([
+											'Clients'=>[
+												'table'=>'clients',
+												'aliase'=>'Clients',
+												'conditions'=>['Employees.company_id = Clients.company_id', 'Clients.id' => $this->Auth->user('id')]
+											]
+										]);
+
+		$collection = new Collection($employees_collect);
+		$employees_ids = $collection->extract('ids');
+		$ids = $employees_ids->toArray();
+
+
+		if(empty($ids)){
+			$this->Flash->error(__('First you need to add  atleast one employee'));
+			return $this->redirect(['controller'=>'employees', 'action'=> 'index']);
+		}
+
+		if(!empty($emp_id)){
+			if(!in_array(base64_decode($emp_id),$ids)){
+				$this->Flash->error(__('You are not authorized'));
+				if(!empty($refere)){
+					return $this->redirect(['controller'=>'employees', 'action'=> 'index']);
+				}
+			}
+			$employees = $this->Dependents->Employees->find('list')->where(['Employees.id' =>base64_decode($emp_id)]);
+			$employee = $this->Dependents->Employees->find('all')->where(['Employees.id' =>base64_decode($emp_id)])->first();
+			
+			$this->set('company_id',$employee->company_id);
+			$this->set('emp_id',$emp_id);
+			
+		}else{
+			$employees = $this->Dependents->Employees->find('list')->where(['Employees.id IN' => $ids]);
+		}
+
+		if(!empty($refere)){
+			$this->set('refere',$refere);
+		}
+
+		$dropDownTable = TableRegistry::get('DropdownValues');
+		$relations = $dropDownTable->find('list',['keyField' => 'keyID','valueField' => 'value'])->where(['name' =>'relation'])->toArray();
+		
+		$this->set('employees',$employees);
+		$this->set('relations',$relations);
+		$this->set('dependent',$dependent);
+    }
+	
+	/**
+	 * Function name 	: edit 
+	 * Description 		: edit Dependents related Information
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 18-May-2017
+	 */
+	public function edit($id = null){
+		$id = base64_decode($id);
+		$dependent 		= $this->Dependents->get($id,['contain' => ['Documents']]);
+
+		$employeeTable 	= tableRegistry::get('Employees');
+		$employees_collect = $employeeTable->find('all')
+									->select(['ids'=>'Employees.id'])
+			                        ->hydrate(false)
+									->join([
+											'Clients'=>[
+												'table'=>'clients',
+												'aliase'=>'Clients',
+												'conditions'=>['Employees.company_id = Clients.company_id', 'Clients.id' => $this->Auth->user('id')]
+											]
+										]);
+
+		$collection = new Collection($employees_collect);
+		$employees_ids = $collection->extract('ids');
+		$ids = $employees_ids->toArray();
+
+		
+		if (!empty($this->request->data)) {
+			
+			if(!in_array($this->request->data['employee_id'],$ids)){
+				$this->Flash->error(__('You are not authorized'));
+				return $this->redirect(['action' => 'edit',base64_encode($id)]);
+			}
+			
+			$this->request->data['passport_exp_date']		= $this->request->data['passport_exp_date_cus'];
+			$this->request->data['entry_permit_exp_date']	= $this->request->data['entry_permit_exp_date_cus'];
+			$this->request->data['visa_exp_date']			= $this->request->data['visa_exp_date_cus'];
+			$this->request->data['emiratesID_exp_date']		= $this->request->data['emiratesID_exp_date_cus'];
+			$this->request->data['health_card_exp_date']	= $this->request->data['health_card_exp_date_cus'];
+			
+			
+			$this->Dependents->patchEntity($dependent, $this->request->data);
+			if($this->Dependents->save($dependent)){
+				$documents = TableRegistry::get('Documents');
+				if(isset($this->request->data['files'][0]['tmp_name']) && !empty($this->request->data['files'][0]['tmp_name'])){
+					foreach($this->request->data['files'] as $file){
+						$data = pathinfo($file['name']);
+						$ext = $data['extension'];
+						$tmp_name = $file['tmp_name'];
+						$newName = 'dependent_'.uniqid().'.'.$ext;
+
+						$cimage = $documents->newEntity();
+						$cimage->related_id = $dependent->id;
+						$cimage->eTitle 	 = 'dependent';
+						$cimage->sectionName = 'dependent';
+						$cimage->file = $newName; 
+
+						if($documents->save($cimage)){
+							move_uploaded_file($tmp_name, "documents/dependent/".$newName);
+						}			
+					}
+				}
+
+				$this->Flash->success(__('Dependent has been saved'));
+				return $this->redirect(['action' => 'index']);
+			}
+
+			$this->Flash->error(__('Dependent could not be save'));
+			return $this->redirect(['action' => 'edit',base64_encode($id)]);
+			
+		}
+
+		
+		$employees = $this->Dependents->Employees->find('list')->where(['Employees.id IN' => $ids]);
+		$dropDownTable = TableRegistry::get('DropdownValues');
+		$relations = $dropDownTable->find('list',['keyField' => 'keyID','valueField' => 'value'])->where(['name' =>'relation'])->toArray();
+	
+		$this->set('relations',$relations);
+		$this->set('employees',$employees);
+		$this->set('dependent',$dependent);
+		$this->set('controller', $this->request->params['controller']);
+    }
+
+
+	/**
+	 * Function name 	: Delete
+	 * Description 		: Delete functionality for Dependent 
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 18-May-2017
+	 */
+
+	 public function delete($id = null){
+	    $id = base64_decode($id);        
+		$dependent = $this->Dependents->find('all')->where(['Dependents.id'=>$id])->first();		
+		if(!empty($dependent)){
+			if ($this->Dependents->delete($dependent)) {
+				$documentTable = TableRegistry::get('Documents');
+				  $documents = $documentTable->find('all')->where(['Documents.related_id'=>$id , 'Documents.sectionName' => 'dependent'])->toArray();
+				 
+				 if(!empty($documents)){
+					foreach($documents as $document){
+						$path = WWW_ROOT.'documents/dependent/'.$document->file;
+						if ($documentTable->delete($document)) {
+							unlink($path);
+						}
+					}
+				 }
+				$this->Flash->success(__('Dependent has been deleted.'));
+				return $this->redirect(['action' => 'index']);
+			} else {
+				$this->Flash->error(__('Dependent could not be deleted. Please, try again.'));
+			}
+			
+		} 
+		return $this->redirect($this->referer());
+    }
+
+
+		/**
+	 * Function name 	: Delete dependent documents
+	 * Description 		: Delete functionality for dependent  documents
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 14-Apr-2017
+	 */
+
+	 public function deleteDependentDocument($id = null){
+		  $id = base64_decode($id);        
+		  $documentTable = TableRegistry::get('Documents');
+		  $document = $documentTable->find('all')->where(['Documents.id'=>$id , 'Documents.sectionName' => 'dependent'])->first();
+		 
+		 if(!empty($document)){
+			$path = WWW_ROOT.'documents/dependent/'.$document->file;
+			if ($documentTable->delete($document)) {
+				unlink($path);
+				$this->Flash->success(__('The Document has been deleted.'));
+				return $this->redirect($this->referer());
+			} else {
+				$this->Flash->error(__('The Document could not be deleted. Please, try again.'));
+			}
+			
+		 } 
+		 return $this->redirect($this->referer());
+	 }
+
+	 /**
+	 * Function name 	: save dependents attachment title
+	 * Description 		: save dependents attachment title
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 5-May-2017
+	 */
+
+	public function save_title(){
+		if($this->request->params['isAjax']){
+
+		    $id = base64_decode($this->request->data['id']);
+			$title = $this->request->data['title'];
+			$documents = TableRegistry::get('Documents');
+			$query = $documents->query();
+			$query->update()->set(['aTitle' => $title])
+				  ->where(['id' => $id])
+				  ->execute();
+			die;
+		}
+
+	}
+
+	/**
+	 * Function name 	: upload_attachment
+	 * Description 		: upload_attachment is used for upload file from "Manage Dependent" file
+	 * Author 			: Wepro 
+	 * Created by 		: Wepro 8-May-2017
+	 */
+
+	public function upload_attachment($deptId = NULL){
+		if($this->request->is('post')){
+			$deptId = base64_decode($this->request->data['dependent-id']);
+
+			if(empty($deptId)){
+				$this->Flash->error(__('Something went wrong. Please, try again.'));
+				return $this->redirect(['action' => 'index']);
+			}
+			if(!empty($this->request->data['attachment-title']) ){
+				
+				$title     = $this->request->data['attachment-title'];
+				$documents = TableRegistry::get('Documents');
+				
+				if(isset($this->request->data['attachment-file']['tmp_name']) && !empty($this->request->data['attachment-file']['tmp_name'])){
+
+					$data     = pathinfo($this->request->data['attachment-file']['name']);
+					$ext      = $data['extension'];
+					$tmp_name = $this->request->data['attachment-file']['tmp_name'];
+					$newName  = 'dependent_'.uniqid().'.'.$ext;
+					
+					$cimage = $documents->newEntity();
+					$cimage->related_id  = $deptId;
+					$cimage->eTitle 	 = 'dependent';
+					$cimage->aTitle		 =  $title;
+					$cimage->sectionName = 'dependent';
+					
+					$cimage->file = $newName; 
+					
+					if($documents->save($cimage)){
+						// now upload file
+						move_uploaded_file($tmp_name, "documents/dependent/".$newName);
+						
+						$this->Flash->success(__('File Uploaded Successfully'));
+						return $this->redirect(['action'=> 'edit', base64_encode($deptId)]);
+					}
+					$this->Flash->error(__('Document couldnot be saved'));
+					return $this->redirect(['action' => 'index']);
+					
+				}else{
+					$this->Flash->error(__('Please choose file. Please, try again.'));
+					return $this->redirect(['action' => 'index']);
+				}
+
+			}else{
+					$this->Flash->error(__('Please fill attachment title. Please, try again.'));
+					return $this->redirect(['action' => 'index']);
+			}
+			
+		}
+		die;
+	
+	}
+
+	public function xls() {
+		
+		$output_type = 'D'; 
+		$file = 'dependents.xlsx';
+		$conditions = [];
+		
+		$employeeTable 	= tableRegistry::get('Employees');
+		$employees = $employeeTable->find('all')
+									->select(['ids'=>'Employees.id'])
+			                        ->hydrate(false)
+									->join([
+											'Clients'=>[
+												'table'=>'clients',
+												'aliase'=>'Clients',
+												'conditions'=>['Employees.company_id = Clients.company_id', 'Clients.id' => $this->Auth->user('id')]
+											]
+										]);
+
+		$collection = new Collection($employees);
+		$employees_ids = $collection->extract('ids');
+		$ids = $employees_ids->toArray();
+
+		array_push($conditions,['Dependents.employee_id IN' => $ids]);
+		
+		if(isset($_GET['employee_id']) && !empty($_GET['employee_id'])){
+				array_push($conditions,array(['Dependents.employee_id' => $_GET['employee_id']]));
+			}
+
+			if($this->request->query('email_or_name')){
+				$searchQuery = $this->request->query('email_or_name');
+				array_push($conditions,array(['Dependents.name LIKE' =>'%'.trim($searchQuery).'%']));
+			}
+
+		$dependents = $this->Dependents->find('all')->where($conditions)->contain('Employees');
+		
+		$this->set(compact('dependents', 'output_type', 'file'));
+		$this->viewBuilder()->layout('xls/default');
+		$this->viewBuilder()->template('xls/spreadsheet_dependents');
+		$this->RequestHandler->respondAs('xlsx');
+		$this->render();
+	}
+	
+}
+
