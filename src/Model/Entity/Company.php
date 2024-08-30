@@ -5,7 +5,7 @@ use Cake\ORM\Entity;
 class Company extends Entity
 {
     // Make all fields mass assignable except for primary key field "id".
-    protected $_accessible = [
+    protected array $_accessible = [
         '*' => true,
         'id' => false
     ];

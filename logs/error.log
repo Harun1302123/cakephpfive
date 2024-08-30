@@ -3473,3 +3473,280 @@ Stack Trace:
 Request URL: /Users/login
 Referer URL: http://localhost:8765/
 Client IP: 127.0.0.1
+2024-08-30 20:18:22 error: [Cake\Core\Exception\CakeException] Auth storage adapter "Session" was not found. in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php on line 877
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:679
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:702
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:284
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:248
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php:330
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php:308
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php:88
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php:661
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:130
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:332
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:86
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:157
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:118
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:69
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php:103
+- /home/harunur/cakephpfive/webroot/index.php:37
+- [main]:
+
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+2024-08-30 20:19:57 error: [Error] Call to undefined method Cake\Datasource\Paging\NumericPaginator::getPagingParams() in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/PaginatorComponent.php on line 266
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/PaginatorComponent.php:198
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php:966
+- /home/harunur/cakephpfive/src/Controller/Admin/CompaniesController.php:58
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php:560
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:140
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:332
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:86
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:157
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:118
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:69
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php:103
+- /home/harunur/cakephpfive/webroot/index.php:37
+- [main]:
+
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+2024-08-30 20:20:28 warning: Undefined array key "config"
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+Cake\Controller\Component->__get() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 899
+Cake\Controller\Component\AuthComponent->__get() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 956
+Cake\Controller\Component\AuthComponent->flash() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 364
+Cake\Controller\Component\AuthComponent->_unauthenticated() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 288
+Cake\Controller\Component\AuthComponent->authCheck() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 248
+Cake\Controller\Component\AuthComponent->startup() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 661
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 130
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 115
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 159
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:28 warning: Undefined array key "class"
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+Cake\Controller\Component->__get() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 899
+Cake\Controller\Component\AuthComponent->__get() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 956
+Cake\Controller\Component\AuthComponent->flash() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 364
+Cake\Controller\Component\AuthComponent->_unauthenticated() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 288
+Cake\Controller\Component\AuthComponent->authCheck() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php, line 248
+Cake\Controller\Component\AuthComponent->startup() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 330
+Cake\Event\EventManager->_callListener() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php, line 308
+Cake\Event\EventManager->dispatch() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php, line 88
+Cake\Controller\Controller->dispatchEvent() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php, line 661
+Cake\Controller\Controller->startupProcess() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 130
+Cake\Controller\ControllerFactory->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php, line 115
+Cake\Controller\ControllerFactory->invoke() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php, line 332
+Cake\Http\BaseApplication->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 86
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php, line 159
+Cake\Http\Middleware\CsrfProtectionMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php, line 157
+Cake\Http\Middleware\BodyParserMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php, line 118
+Cake\Routing\Middleware\RoutingMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php, line 69
+Cake\Routing\Middleware\AssetMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php, line 115
+Cake\Error\Middleware\ErrorHandlerMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php, line 60
+DebugKit\Middleware\DebugKitMiddleware->process() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 82
+Cake\Http\Runner->handle() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php, line 60
+Cake\Http\Runner->run() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 103
+Cake\Http\Server->run() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:28 error: [TypeError] Cake\Core\ObjectRegistry::load(): Argument #1 ($name) must be of type string, null given, called in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component.php on line 152 in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Core/ObjectRegistry.php on line 81
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component.php:152
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:899
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:956
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:364
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:288
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Component/AuthComponent.php:248
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php:330
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventManager.php:308
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php:88
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/Controller.php:661
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:130
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:332
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:86
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:159
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:157
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:118
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:69
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php:103
+- /home/harunur/cakephpfive/webroot/index.php:37
+- [main]:
+
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+2024-08-30 20:20:28 warning: Unable to emit headers. Headers sent in file=/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Renderer/HtmlErrorRenderer.php line=37
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 65
+Cake\Http\ResponseEmitter->emit() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 139
+Cake\Http\Server->emit() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:28 warning: Cannot modify header information - headers already sent by (output started at /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Renderer/HtmlErrorRenderer.php:37)
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 159
+Cake\Http\ResponseEmitter->emitStatusLine() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 68
+Cake\Http\ResponseEmitter->emit() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 139
+Cake\Http\Server->emit() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:28 warning: Cannot modify header information - headers already sent by (output started at /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Renderer/HtmlErrorRenderer.php:37)
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 192
+Cake\Http\ResponseEmitter->emitHeaders() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 69
+Cake\Http\ResponseEmitter->emit() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 139
+Cake\Http\Server->emit() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:28 warning: Cannot modify header information - headers already sent by (output started at /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Renderer/HtmlErrorRenderer.php:37)
+Request URL: /admin/companies/
+Referer URL: http://localhost:8765/
+Client IP: 127.0.0.1
+Trace:
+/home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 192
+Cake\Http\ResponseEmitter->emitHeaders() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 69
+Cake\Http\ResponseEmitter->emit() /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php, line 139
+Cake\Http\Server->emit() /home/harunur/cakephpfive/webroot/index.php, line 37
+[main]
+
+2024-08-30 20:20:33 error: [Cake\Http\Exception\MissingControllerException] Controller class `Img` could not be found. in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Img',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Img',
+)
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:75
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:330
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:86
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:157
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:118
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:78
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php:103
+- /home/harunur/cakephpfive/webroot/index.php:37
+- [main]:
+
+Request URL: /img/images.jpg
+Referer URL: http://localhost:8765/css/style.css
+Client IP: 127.0.0.1
+2024-08-30 20:20:39 error: [Cake\Http\Exception\MissingControllerException] Controller class `Img` could not be found. in /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php on line 338
+Exception Attributes: array (
+  'controller' => 'Img',
+  'plugin' => NULL,
+  'prefix' => NULL,
+  '_ext' => NULL,
+  'class' => 'Img',
+)
+Stack Trace:
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Controller/ControllerFactory.php:75
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/BaseApplication.php:330
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:86
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:169
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Middleware/BodyParserMiddleware.php:157
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php:118
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php:78
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php:115
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:82
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Runner.php:60
+- /home/harunur/cakephpfive/vendor/cakephp/cakephp/src/Http/Server.php:103
+- /home/harunur/cakephpfive/webroot/index.php:37
+- [main]:
+
+Request URL: /img/images.jpg
+Referer URL: http://localhost:8765/css/style.css
+Client IP: 127.0.0.1
